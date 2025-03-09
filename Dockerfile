@@ -10,7 +10,7 @@ COPY . /app
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Ensure nltk stopwords are downloaded
-RUN python -c "import nltk; nltk.download('stopwords')"
+# RUN python -c "import nltk; nltk.download('stopwords')"
 
 # Expose the port Flask runs on
 EXPOSE 5000
