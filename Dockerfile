@@ -18,5 +18,5 @@ COPY . /app
 EXPOSE 5000
 
 # Define the entry point command
-CMD ["python", "main.py"]
+CMD ["python", "app/main.py"]
 
