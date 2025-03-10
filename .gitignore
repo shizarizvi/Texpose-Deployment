@@ -1,2 +1,10 @@
 .venv
 app/__pycache__
+# Ignore model data and checkpoints
+model/bert_model/.data/
+model/bert_model/data/
+model/bert_model/byteorder
+model/bert_model/data.pkl
+
+# Optional: Ignore version if it's auto-generated
+model/bert_model/version
