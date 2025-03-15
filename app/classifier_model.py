@@ -29,7 +29,7 @@ def load_models():
         output_hidden_states = True, # Whether the model returns all hidden-states.
     )
 
-    model_ai_hum = torch.load('model/bert_model/data.pkl', map_location="cpu", weights_only=False)
+    model_ai_hum = torch.load('data.pkl', map_location="cpu", weights_only=False)
     model_llm.load_state_dict(torch.load('model/bert_model_llm_only__2.pth', map_location="cpu"))
 
     return tokenizer, model_ai_hum, model_llm
