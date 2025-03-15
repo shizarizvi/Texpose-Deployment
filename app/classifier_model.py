@@ -6,6 +6,20 @@ import torch
 import re
 import nltk
 from nltk.corpus import stopwords
+import gdown
+
+def download_model(file_id, output_name):
+    url = f"https://drive.google.com/uc?id={file_id}"
+    gdown.download(url, output_name, quiet=False)
+
+# Model file IDs from Google Drive
+bert_model_id = "14OBJIgUtGLujlCzEaBb2Mxc5eUsAMZk5"
+cascade_bert_model_id = "14Shk7Yt6ilSrzFvppjSsqqZBv2RM1qwt"
+
+# Download models
+download_model(bert_model_id, "bert_model.pth")
+download_model(cascade_bert_model_id, "cascade_bert_model.pth")
+
 
 nltk.download('stopwords')
 sw = stopwords.words('english') 
@@ -29,8 +43,8 @@ def load_models():
         output_hidden_states = True, # Whether the model returns all hidden-states.
     )
 
-    model_ai_hum = torch.load('data.pkl', map_location="cpu", weights_only=False)
-    model_llm.load_state_dict(torch.load('model/bert_model_llm_only__2.pth', map_location="cpu"))
+    model_ai_hum = torch.load('bert_model.pth', map_location="cpu", weights_only=False)
+    model_llm.load_state_dict(torch.load('cascade_bert_model.pth', map_location="cpu"))
 
     return tokenizer, model_ai_hum, model_llm
 
