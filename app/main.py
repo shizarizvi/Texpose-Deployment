@@ -11,6 +11,9 @@ app = Flask(__name__)
 @app.route("/", methods=["GET", "POST"])
 def index():
     prediction = None
+    if request.method == "GET":
+        return {"svc_Texpose is alive :) "}
+    
     if request.method == "POST":
         input_text = request.form.get("text", "")
         if input_text.strip():  #  input if not empty then proceed
