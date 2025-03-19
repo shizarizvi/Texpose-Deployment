@@ -16,7 +16,36 @@ jobs:
         run: echo "${{ secrets.DOCKER_HUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin
 
       - name: Build and Push Docker Image
+        id: docker_build
         run: |
           docker build -t shizarizvi/texpose .
           docker tag shizarizvi/texpose shizarizvi/texpose-app:latest
           docker push shizarizvi/texpose-app:latest
+        continue-on-error: true
+
+      - name: Send Email Notification
+        if: always()  # Run this step regardless of success or failure
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 587
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: "Docker Image Build Status: ${{ job.status }}"
+          to: "rizvi4400482@cloud.neduet.edu.pk"
+          from: "GitHub Actions <${{ secrets.EMAIL_USERNAME }}>"
+          body: |
+            Hello,
+
+            The Docker image build process has completed with status: ${{ job.status }}
+
+            Repository: ${{ github.repository }}
+            Commit: ${{ github.sha }}
+            Branch: ${{ github.ref_name }}
+            Workflow: ${{ github.workflow }}
+            Run: ${{ github.run_id }}
+
+            Check details at: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+            Best,
+            GitHub Actions
