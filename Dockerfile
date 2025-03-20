@@ -1,9 +1,9 @@
 FROM python:3.9-slim
 
 # Set the working directory
-WORKDIR .
+WORKDIR /app
 
-# Copy requirements.txt file
+# Copy only requirements file first for better Docker caching
 COPY requirements.txt .
 
 # Install dependencies
@@ -12,12 +12,12 @@ RUN pip install --no-cache-dir --upgrade pip \
 
 RUN pip install -U nltk
 
-# Then copy the rest of the application files
-COPY . /app
+# Copy the rest of the application files
+COPY . .
 
 # Expose the port FastAPI runs on
 EXPOSE 8000
 
 # Define the entry point command
-CMD ["uvicorn", "main:app", "--reload"]
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
 
