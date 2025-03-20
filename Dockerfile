@@ -1,11 +1,10 @@
-
 FROM python:3.9-slim
 
 # Set the working directory
-WORKDIR /app
+WORKDIR /
 
 # Copy requirements.txt file
-COPY requirements.txt /app/
+COPY requirements.txt .
 
 # Install dependencies
 RUN pip install --no-cache-dir --upgrade pip \
