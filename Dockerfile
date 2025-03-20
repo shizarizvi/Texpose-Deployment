@@ -11,14 +11,14 @@ COPY requirements.txt /app/
 RUN pip install --no-cache-dir --upgrade pip \
     && pip install --no-cache-dir -r requirements.txt
 
-RUN pip install --user -U nltk
+RUN pip install -U nltk
 
 # Then copy the rest of the application files
 COPY . /app
 
-# Expose the port Flask runs on
-EXPOSE 5000
+# Expose the port FastAPI runs on
+EXPOSE 8000
 
 # Define the entry point command
-CMD ["python", "app/main.py"]
+CMD ["uvicorn", "main:app", "--reload"]
 

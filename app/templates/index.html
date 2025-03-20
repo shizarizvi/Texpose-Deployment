@@ -83,9 +83,10 @@
 <body>
     <div class="container">
         <h2><i class="fas fa-brain"></i> AI vs Human Text Detector</h2>
-        <form method="POST">
-            <textarea name="text" rows="5" placeholder="Type here..." 
-            class="{% if prediction == 'Human' %}human-text{% elif prediction %}ai-text{% endif %}">{{ request.form.get('text', '') }}</textarea>
+        <form method="POST" action="/classify">
+            <textarea name="input_text" rows="5" placeholder="Type here..." 
+            class="{% if prediction == 'Human' %}human-text{% elif prediction %}ai-text{% endif %}">{{ input_text }}</textarea>
+
             <button type="submit"><i class="fas fa-search"></i> Analyze</button>
         </form>
 

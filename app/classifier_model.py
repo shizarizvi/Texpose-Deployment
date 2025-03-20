@@ -7,18 +7,22 @@ import re
 import nltk
 from nltk.corpus import stopwords
 import gdown
+import os
+
+file_path = "bert_model.pth"  # Change to your file's actual path
 
 def download_model(file_id, output_name):
-    url = f"https://drive.google.com/uc?id={file_id}"
-    gdown.download(url, output_name, quiet=False)
+        url = f"https://drive.google.com/uc?id={file_id}"
+        gdown.download(url, output_name, quiet=False)
 
-# Model file IDs from Google Drive
-bert_model_id = "14OBJIgUtGLujlCzEaBb2Mxc5eUsAMZk5"
-cascade_bert_model_id = "14Shk7Yt6ilSrzFvppjSsqqZBv2RM1qwt"
+if not os.path.exists(file_path):
+    # Model file IDs from Google Drive
+    bert_model_id = "14OBJIgUtGLujlCzEaBb2Mxc5eUsAMZk5"
+    cascade_bert_model_id = "14Shk7Yt6ilSrzFvppjSsqqZBv2RM1qwt"
 
-# Download models
-download_model(bert_model_id, "bert_model.pth")
-download_model(cascade_bert_model_id, "cascade_bert_model.pth")
+    # Download models
+    download_model(bert_model_id, "bert_model.pth")
+    download_model(cascade_bert_model_id, "cascade_bert_model.pth")
 
 
 nltk.download('stopwords')
@@ -103,9 +107,3 @@ def classify_text(text, model_ai_hum, model_llm, tokenizer):
             predicted_label_llm = "Gemini"
 
     return {"type": predicted_label, "llm": predicted_label_llm}
-
-    
-# Example usage:
-# abstract = df["Abstract"].values[39000]
-# result = classify_abstract(abstract, model_ai_hum, model_llm, tokenizer)
-# print(result)

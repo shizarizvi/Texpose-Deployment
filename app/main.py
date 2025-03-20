@@ -1,31 +1,33 @@
+from fastapi import FastAPI, Request, Form
+from fastapi.templating import Jinja2Templates
+from fastapi.responses import HTMLResponse
+from classifier_model import load_models, classify_text
+
 print("svc_texpose - starting")
 
-from classifier_model import load_models, classify_text
-from flask import Flask, render_template, request
-
+# Load models
 tokenizer, model_ai_hum, model_llm = load_models()
 
-# Flask App
-app = Flask(__name__)
+# Initialize FastAPI app
+app = FastAPI()
 
-@app.route("/", methods=["GET", "POST"])
-def index():
-    prediction = None
-    if request.method == "GET":
-        return {"svc_Texpose is alive :) "}
-    
-    if request.method == "POST":
-        input_text = request.form.get("text", "")
-        if input_text.strip():  #  input if not empty then proceed
-            result = classify_text(input_text, model_ai_hum, model_llm, tokenizer)
-            prediction = result["type"]
-            if len(result["llm"]) > 1:
-                prediction += " Using " + result["llm"]
-        
-            print(prediction)
-    return render_template("index.html", prediction=prediction if prediction is not None else "")
+# Set up Jinja2 templates
+templates = Jinja2Templates(directory="templates")
 
+@app.get("/", response_class=HTMLResponse)
+async def root(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request, "prediction": None, "input_text": ""})
 
-if __name__ == "__main__":
-    app.run(debug=True)
+@app.post("/classify", response_class=HTMLResponse)
+async def classify(request: Request, input_text: str = Form(...)):
+    if input_text.strip():  # Ensure input is not empty
+        result = classify_text(input_text, model_ai_hum, model_llm, tokenizer)
+        prediction = result["type"]
 
+        # Ensure "llm" exists and is not empty
+        if result.get("llm"):
+            prediction += f" Using {result['llm']}"
+
+        return templates.TemplateResponse("index.html", {"request": request, "prediction": prediction, "input_text": input_text})
+
+    return templates.TemplateResponse("index.html", {"request": request, "prediction": "No text provided.", "input_text": ""})
