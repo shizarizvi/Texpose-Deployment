@@ -1,7 +1,7 @@
 FROM python:3.9-slim
 
 # Set the working directory
-WORKDIR /
+WORKDIR .
 
 # Copy requirements.txt file
 COPY requirements.txt .
