@@ -1,7 +1,8 @@
 from fastapi import FastAPI, Request, Form
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
-from classifier_model import load_models, classify_text
+from app.classifier_model import load_models, classify_text
+import os
 
 print("svc_texpose - starting")
 
@@ -11,15 +12,18 @@ tokenizer, model_ai_hum, model_llm = load_models()
 # Initialize FastAPI app
 app = FastAPI()
 
-# Set up Jinja2 templates
-templates = Jinja2Templates(directory="templates")
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))  # Gets /app/app/
+TEMPLATES_DIR = os.path.join(BASE_DIR, "templates")
+
+templates = Jinja2Templates(directory=TEMPLATES_DIR)
+
 
 @app.get("/", response_class=HTMLResponse)
 async def root(request: Request):
     return templates.TemplateResponse("index.html", {"request": request, "prediction": None, "input_text": ""})
 
 @app.post("/classify", response_class=HTMLResponse)
-async def classify(request: Request, input_text: str = Form(...)):
+async def classify(request: Request, input_text: str = Form(default="")):
     if input_text.strip():  # Ensure input is not empty
         result = classify_text(input_text, model_ai_hum, model_llm, tokenizer)
         prediction = result["type"]
