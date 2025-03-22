@@ -9,13 +9,15 @@ from nltk.corpus import stopwords
 import gdown
 import os
 
-file_path = "bert_model.pth"  # Change to your file's actual path
+file_path = "bert_model.pth"  # ML model's path
 
-def download_model(file_id, output_name):
+if not os.path.exists(file_path):
+    print('Model not found locally, downloading from Drive...')
+
+    def download_model(file_id, output_name):
         url = f"https://drive.google.com/uc?id={file_id}"
         gdown.download(url, output_name, quiet=False)
 
-if not os.path.exists(file_path):
     # Model file IDs from Google Drive
     bert_model_id = "14OBJIgUtGLujlCzEaBb2Mxc5eUsAMZk5"
     cascade_bert_model_id = "14Shk7Yt6ilSrzFvppjSsqqZBv2RM1qwt"
@@ -24,6 +26,10 @@ if not os.path.exists(file_path):
     download_model(bert_model_id, "bert_model.pth")
     download_model(cascade_bert_model_id, "cascade_bert_model.pth")
 
+    print('Models downloaded locally!')
+
+else:
+    print('Using pre-downloaded local models...')
 
 nltk.download('stopwords')
 sw = stopwords.words('english') 
