@@ -1,5 +1,5 @@
 import transformers
-from transformers import BertForSequenceClassification, AdamW, BertConfig,BertTokenizer,get_linear_schedule_with_warmup
+from transformers import BertForSequenceClassification, BertConfig,BertTokenizer,get_linear_schedule_with_warmup
 import numpy as np
 from transformers import AutoTokenizer
 import torch
