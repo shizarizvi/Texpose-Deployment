@@ -1,5 +1,5 @@
 import transformers
-from transformers import BertForSequenceClassification, BertTokenizer
+from transformers import BertForSequenceClassification,BertTokenizer
 import numpy as np
 import torch
 import re
