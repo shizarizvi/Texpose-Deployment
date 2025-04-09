@@ -1,0 +1,287 @@
+
+@font-face {
+  font-family: "Goudy Old Style";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Goudy Old Style"), url("/static/fonts/GOUDOS.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Futura Cyrillic Book";
+  src: url("/static/fonts/FuturaCyrillicBook.woff2") format("woff2"),
+    url("/static/fonts/FuturaCyrillicBook.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+@font-face {
+  font-family: "Futura Cyrillic Light";
+  font-style: normal;
+  font-weight: 300; 
+  src: url("../static/fonts/FuturaCyrillicLight.woff2") format("woff2"),
+    url("../static/fonts/FuturaCyrillicLight.woff") format("woff");
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  scroll-behavior: smooth;
+  overflow:hidden;
+  
+}
+
+
+.video-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+  ;
+ }
+
+
+
+
+.header {
+  width: 100%;
+  font-family: "Futura Cyrillic Light";
+  position: absolute;
+  z-index: 1000;
+  background-size: cover;
+  padding: 30px 0px;
+}
+
+.header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: inherit;
+  z-index: -1;
+}
+
+.title {
+  font-size: 3rem;
+}
+
+.subtitle {
+  font-size: 1.3rem;
+
+  
+}
+
+.page {
+  height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+ 
+}
+
+
+
+
+  .description {
+  font-family: "Futura Cyrillic Light";
+  opacity: 0;
+  transition:none;
+  font-weight: bold;
+  transform: translateY(30px);
+  color: white;
+
+  
+}
+
+
+
+
+.credits {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 80%;
+}
+
+
+
+   @keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px); /* Start lower */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0); /* Moves up smoothly */
+  }
+}   
+
+   .aos-animate,.active {
+  opacity: 1;
+
+  animation: fadeUp 1.2s ease-out forwards; 
+}
+
+
+
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="url"] {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #fafafa;
+  box-sizing: border-box;
+  font-size: 1.3rem;
+  background-color: transparent;
+  outline: none;
+  font-family: "Futura Cyrillic Light";
+  font-weight: normal;
+  text-align: center;
+  margin: 5px 0;
+  padding: 10px 0;
+}
+
+input::placeholder {
+  color: white; 
+  opacity: 1;  
+  font-family: "Futura Cyrillic Light"; 
+}
+
+
+.submit {
+  border: none;
+  background-color: transparent;
+  font-family: "Futura Cyrillic Light", serif;
+  font-size: 1.3rem;
+  margin-top: 30px;
+  cursor: pointer;
+  color:white;
+}
+
+form {
+  position:absolute;
+  top: 30%;
+  width:60%;
+  color:white;
+  display:flex;
+  flex-direction: column;
+}
+
+#formContent{
+    display: flex;
+    justify-content: center;
+}
+
+form h1 {
+  font-family: "Goudy Old Style";
+  font-weight: normal;
+  margin-bottom: 5%;
+  color: white;
+}
+
+  
+/* Initially hide inputs */
+.form-field {
+opacity: 0;
+transform: translateY(30px); 
+transition: opacity 1.2s ease-out, transform 1.2s ease-out;
+}
+
+/* When active, apply the fadeUp effect */
+.form-field.active {
+opacity: 1;
+transform: translateY(0); 
+}
+
+
+
+
+.header-items{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  list-style: none;
+  color:white;
+  font-size: 18px;
+}
+
+.header-items li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1; 
+  text-align: center;
+  color: white;
+
+}
+
+
+
+
+textarea {
+  height: 150px;
+  
+  border-bottom: 1px solid #fafafa;
+  box-sizing: border-box;
+  font-size: 1.3rem;
+  background-color: rgba(0, 0, 0, 0.014);
+  outline: none;
+  font-family: "Futura Cyrillic Light";
+  font-weight: normal;
+  text-align: center;
+  margin: 5px 0;
+  padding: 10px;
+  color: white;
+  resize: none; 
+  border-radius: 15px ;
+}
+
+
+textarea::placeholder {
+  color: white;
+  opacity: 1;
+  font-family: "Futura Cyrillic Light";
+  font-size: 1.5rem;
+}
+
+
+textarea.form-field {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 1.2s ease-out, transform 1.2s ease-out;
+}
+
+textarea.form-field.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+.human-text {
+  border: 2px solid #00ff00; 
+  background: rgba(0, 255, 0, 0.2); 
+}
+
+.ai-text {
+  border: 2px solid #ff4d4d; 
+  background: rgba(255, 0, 0, 0.2); 
+}

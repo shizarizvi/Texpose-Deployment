@@ -3,6 +3,8 @@ from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
 from app.classifier_model import load_models, classify_text
 import os
+from fastapi.staticfiles import StaticFiles
+
 
 print("svc_texpose - starting")
 
@@ -14,8 +16,9 @@ app = FastAPI()
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))  # Gets /app/app/
 TEMPLATES_DIR = os.path.join(BASE_DIR, "templates")
-
 templates = Jinja2Templates(directory=TEMPLATES_DIR)
+
+app.mount("/static", StaticFiles(directory=os.path.join(BASE_DIR, "static")), name="static")
 
 
 @app.get("/", response_class=HTMLResponse)

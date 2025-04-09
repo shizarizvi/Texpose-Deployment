@@ -1,7 +1,6 @@
 import transformers
-from transformers import BertForSequenceClassification, AdamW, BertConfig,BertTokenizer,get_linear_schedule_with_warmup
+from transformers import BertForSequenceClassification, BertTokenizer
 import numpy as np
-from transformers import AutoTokenizer
 import torch
 import re
 import nltk
@@ -15,8 +14,11 @@ if not os.path.exists(file_path):
     print('Model not found locally, downloading from Drive...')
 
     def download_model(file_id, output_name):
+        current_dir = os.getcwd()
+        output_path = os.path.join(current_dir, output_name)
         url = f"https://drive.google.com/uc?id={file_id}"
-        gdown.download(url, output_name, quiet=False)
+        gdown.download(url, output_path, quiet=False)
+
 
     # Model file IDs from Google Drive
     bert_model_id = "14OBJIgUtGLujlCzEaBb2Mxc5eUsAMZk5"
@@ -45,13 +47,7 @@ def load_models():
         output_hidden_states = True, # Whether the model returns all hidden-states.
     )
 
-    model_llm = BertForSequenceClassification.from_pretrained(
-        "bert-base-uncased", # Use the 12-layer BERT model, with an uncased vocab.
-        num_labels = 2, # The number of output labels--2 for binary classification.
-                        # You can increase this for multi-class tasks.
-        output_attentions = True, # Whether the model returns attentions weights.
-        output_hidden_states = True, # Whether the model returns all hidden-states.
-    )
+    model_llm = model_ai_hum
 
     model_ai_hum = torch.load('bert_model.pth', map_location="cpu", weights_only=False)
     model_llm.load_state_dict(torch.load('cascade_bert_model.pth', map_location="cpu"))

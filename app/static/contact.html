@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Texpose - Contact Us</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link href="/static/responsive.css">
+    <style>
+      body {
+        background:url("/static/images/background.jpg");
+    
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        color: white;
+        margin: 0;
+        font-family: "Futura Cyrillic Light", sans-serif;
+
+      }
+
+      
+
+      .page {
+        height: 100dvh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        width: 100%;
+        min-height: 100vh;
+        position: relative;
+      }
+
+      .credits {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        max-width: 80%;
+      }
+
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .aos-animate, .active {
+        opacity: 1;
+        animation: fadeUp 1.2s ease-out forwards;
+      }
+
+      input[type="text"],
+      input[type="email"],
+      input[type="tel"],
+      input[type="url"] {
+        width: 100%;
+        border: none;
+        border-bottom: 1px solid #fafafa;
+        box-sizing: border-box;
+        font-size: 1.3rem;
+        background-color: transparent;
+        outline: none;
+        font-family: "Futura Cyrillic Light";
+        font-weight: normal;
+        text-align: center;
+        margin: 5px 0;
+        padding: 10px 0;
+        color: white;
+      }
+
+      input::placeholder {
+        color: white;
+        opacity: 1;
+      }
+
+      .submit {
+        border: none;
+        background-color: transparent;
+        font-size: 1.3rem;
+        margin-top: 30px;
+        cursor: pointer;
+        color: white;
+      }
+
+      form {
+        position: absolute;
+        top: 20%;
+        max-width: 80%;
+        color: white;
+        text-align: center;
+      }
+
+      #formContent {
+        display: flex;
+        justify-content: center;
+      }
+
+      form h1 {
+        font-size: 2.6rem;
+        font-family: "Goudy Old Style";
+        font-weight: normal;
+        margin-bottom: 5%;
+      }
+
+      .form-field {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 1.2s ease-out, transform 1.2s ease-out;
+      }
+
+      .form-field.active {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+        <ul class="header-items">
+          <li>
+            <a
+              href="/"
+              style="
+                cursor: pointer;
+                text-decoration: none;
+                color: white;
+                background: none;
+                -webkit-tap-highlight-color: transparent;
+                font-family: 'Goudy Old Style';
+              "
+            >
+              <div class="subtitle">TEXPOSE</div></a
+            >
+          </li>
+          <li><a  style="
+            cursor: pointer;
+            text-decoration: none;
+            color: white;
+            background: none;
+            -webkit-tap-highlight-color: transparent;
+           
+          "  href="/static/story.html">Our Story</a></li>
+          <li>
+            <a
+              style="
+                cursor: pointer;
+                text-decoration: none;
+                color: white;
+                background: none;
+                -webkit-tap-highlight-color: transparent;
+               
+              "
+              href="/static/about.html"
+            >
+              About Us</a
+            >
+          </li>
+          <li><a  style="
+            cursor: pointer;
+            text-decoration: none;
+            color: white;
+            background: none;
+            -webkit-tap-highlight-color: transparent;
+           
+          " href="/static/contact.html">Contact Us</a></li>
+        </ul>
+      </header>
+    <section class="contact-form page">
+      <form action="https://formspree.io/f/xkgjoggn" method="post">
+        <h1>You</h1>
+        <input class="form-field" placeholder="Name" type="text" id="name" name="name" required />
+        <input class="form-field" placeholder="Email" type="email" id="email" name="email" required />
+        <input class="form-field" placeholder="Phone" type="tel" id="phone" name="phone" />
+        <input class="form-field" placeholder="LinkedIn" type="url" id="linkedin" name="linkedin" />
+        <button class="submit" type="submit">Submit</button>
+      </form>
+    </section>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".form-field").forEach((input, i) => {
+          setTimeout(() => {
+            input.classList.add("active");
+          }, i * 200);
+        });
+      });
+    </script>
+  </body>
+</html>
