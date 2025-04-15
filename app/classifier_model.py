@@ -8,7 +8,7 @@ from nltk.corpus import stopwords
 import gdown
 import os
 
-file_path = "bert_model.pth"  # ML model's path
+file_path = "\app\bert_model.pth"  # ML model's path
 
 if not os.path.exists(file_path):
     print('Model not found locally, downloading from Drive...')
