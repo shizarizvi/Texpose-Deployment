@@ -26,10 +26,10 @@ jobs:
       - name: Build and Push Docker Image
         id: docker_build
         run: |
-          docker build -t shizarizvi/texpose:${{ env.IMAGE_TAG }} .
-          docker tag shizarizvi/texpose:${{ env.IMAGE_TAG }} shizarizvi/texpose:latest
-          docker push shizarizvi/texpose:${{ env.IMAGE_TAG }}
-          docker push shizarizvi/texpose:latest
+          docker build -t shizarizvi/texpose-app:${{ env.IMAGE_TAG }} .
+          docker tag shizarizvi/texpose-app:${{ env.IMAGE_TAG }} shizarizvi/texpose-app:latest
+          docker push shizarizvi/texpose-app:${{ env.IMAGE_TAG }}
+          docker push shizarizvi/texpose-app:latest
         continue-on-error: true
 
       - name: Send Email Notification
@@ -55,8 +55,8 @@ jobs:
             Run: ${{ github.run_id }}
 
             Docker Tags:
-            - shizarizvi/texpose:${{ env.IMAGE_TAG }}
-            - shizarizvi/texpose:latest
+            - shizarizvi/texpose-app:${{ env.IMAGE_TAG }}
+            - shizarizvi/texpose-app:latest
 
             Check details at: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
