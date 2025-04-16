@@ -2,7 +2,7 @@ fastapi
 fastapi[standard]
 pydantic
 torch==2.5.1
-transformers=4.51.1
+transformers==4.51.1
 numpy
 flask
 gdown
