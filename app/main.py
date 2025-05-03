@@ -6,6 +6,7 @@ import os
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import JSONResponse
 from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse
 
 
 print("svc_texpose - starting")
@@ -30,7 +31,6 @@ async def root(request: Request):
 
 
 
-
 @app.post("/api/classify")
 async def classify_api(request: Request):
     data = await request.json()
@@ -43,6 +43,11 @@ async def classify_api(request: Request):
         if result.get("llm"):
             prediction += f" Using {result['llm']}"
 
+        return JSONResponse(content={"prediction": prediction})
+    
+    return JSONResponse(content={"prediction": "No text provided."})
+
+    
         return JSONResponse(content={"prediction": prediction})
     
     return JSONResponse(content={"prediction": "No text provided."})
