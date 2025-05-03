@@ -8,7 +8,7 @@ from nltk.corpus import stopwords
 import gdown
 import os
 
-file_path = "\app\bert_model.pth"  # ML model's path
+file_path = "bert_model.pth"  # ML model's path
 
 if not os.path.exists(file_path):
     print('Model not found locally, downloading from Drive...')
@@ -98,11 +98,13 @@ def classify_text(text, model_ai_hum, model_llm, tokenizer):
     else:
         predicted_label = "AI"
 
-        with torch.no_grad():
-            outputs_llm = model_llm(input_ids, attention_mask=attention_mask)
-            logits_llm = outputs_llm.logits
-            predicted_llm_pred = np.argmax(logits_llm.cpu().numpy(), axis=1).item()
+        # with torch.no_grad():
+        #     outputs_llm = model_llm(input_ids, attention_mask=attention_mask)
+        #     logits_llm = outputs_llm.logits
+        #     predicted_llm_pred = np.argmax(logits_llm.cpu().numpy(), axis=1).item()
 
+
+        predicted_llm_pred = 0
         if predicted_llm_pred == 0:
             predicted_label_llm = "LLAMA"
         else:
