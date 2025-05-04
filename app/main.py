@@ -46,10 +46,3 @@ async def classify_api(request: Request):
         return JSONResponse(content={"prediction": prediction})
     
     return JSONResponse(content={"prediction": "No text provided."})
-
-    
-        return JSONResponse(content={"prediction": prediction})
-    
-    return JSONResponse(content={"prediction": "No text provided."})
-
-    
