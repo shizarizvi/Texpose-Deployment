@@ -4,9 +4,6 @@ from fastapi.responses import HTMLResponse
 from app.classifier_model import load_models, classify_text
 import os
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import JSONResponse
-from fastapi.responses import JSONResponse
-from fastapi.responses import JSONResponse
 
 
 print("svc_texpose - starting")
@@ -28,21 +25,19 @@ app.mount("/static", StaticFiles(directory=os.path.join(BASE_DIR, "static")), na
 async def root(request: Request):
     return templates.TemplateResponse("index.html", {"request": request, "prediction": None, "input_text": ""})
 
-
-
-
-@app.post("/api/classify")
-async def classify_api(request: Request):
-    data = await request.json()
-    input_text = data.get("input_text", "")
-
-    if input_text.strip():
+@app.post("/classify", response_class=HTMLResponse)
+async def classify(request: Request, input_text: str = Form(default="")):
+    if input_text.strip():  # Ensure input is not empty
         result = classify_text(input_text, model_ai_hum, model_llm, tokenizer)
         prediction = result["type"]
 
+        # Ensure "llm" exists and is not empty
         if result.get("llm"):
             prediction += f" Using {result['llm']}"
 
-        return JSONResponse(content={"prediction": prediction})
-    
-    return JSONResponse(content={"prediction": "No text provided."})
+        return templates.TemplateResponse("index.html", {"request": request, "prediction": prediction, "input_text": input_text})
+
+    return templates.TemplateResponse("index.html", {"request": request, "prediction": "No text provided.", "input_text": ""})
+
+
+
