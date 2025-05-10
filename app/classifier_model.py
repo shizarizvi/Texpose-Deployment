@@ -19,10 +19,9 @@ if not os.path.exists(file_path):
         url = f"https://drive.google.com/uc?id={file_id}"
         gdown.download(url, output_path, quiet=False)
 
-
     # Model file IDs from Google Drive
     bert_model_id = "14OBJIgUtGLujlCzEaBb2Mxc5eUsAMZk5"
-    cascade_bert_model_id = "14Shk7Yt6ilSrzFvppjSsqqZBv2RM1qwt"
+    cascade_bert_model_id = "14dRuqUSqWVd0fbdYUUJOtguxxl4PRftn"
 
     # Download models
     download_model(bert_model_id, "bert_model.pth")
